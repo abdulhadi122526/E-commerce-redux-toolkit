@@ -4,24 +4,24 @@ import { decreaseQuantity, deleteCartItem, increaseQuantity } from '../configrat
 import Swal from 'sweetalert2'
 
 const Carts = () => {
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const selector = useSelector(state => state.cart.cartItem)
-  
+
   console.log(selector);
 
   const increase = (item) => {
     dispatch(increaseQuantity(item))
   }
-  const deCrease =(item) =>{
+  const deCrease = (item) => {
     dispatch(decreaseQuantity(item))
-    
-    
+
+
   }
-  const deleteCart = (item) =>{
+  const deleteCart = (item) => {
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: "btn btn-success ms-5" ,
+        confirmButton: "btn btn-success ms-5",
         cancelButton: "btn btn-error"
       },
       buttonsStyling: false
@@ -37,11 +37,11 @@ const dispatch = useDispatch()
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(deleteCartItem(item))
-       
+
       } else if (
-        
+
         result.dismiss === Swal.DismissReason.cancel
-      ) ;
+      );
     });
 
   }
@@ -50,11 +50,11 @@ const dispatch = useDispatch()
 
 
 
-   
-    
-    
-    
-    
+
+
+
+
+
 
 
 
@@ -64,11 +64,11 @@ const dispatch = useDispatch()
 
   return (
     <>
-    <h1 className='text-center text-5xl pb-20 text-fuchsia-700'>Your Products</h1>
-    
+      <h1 className='text-center text-5xl pb-20 text-fuchsia-700'>Your Products</h1>
+
       {selector && selector.map((item, index) => {
         return <div key={index} className='w-[700px]  mx-auto my-5 border rounded-md'>
-          
+
           <div className="card lg:card-side bg-base-100 rounded-md shadow-md">
             <figure className='w-[1000px]'>
               <img
@@ -87,9 +87,9 @@ const dispatch = useDispatch()
               </div>
               <div className="card-actions justify-end mb-0 ">
                 <button className=" btn btn-outline btn-error text-xs" onClick={() => deleteCart(item)}>Remove from cart</button>
-                
+
               </div>
-                
+
             </div>
           </div>
         </div>

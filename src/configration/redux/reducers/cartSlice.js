@@ -17,6 +17,7 @@ const cartSlice = createSlice({
           ...action.payload,
         };
         state.cartItem.push(action.payload);
+        state.cartTotalPrice += parseFloat(action.payload.Price.toFixed(2))
         const Toast = Swal.mixin({
           toast: true,
           position: "top-end",
@@ -53,8 +54,9 @@ const cartSlice = createSlice({
      }else{
       state.cartItem[itemIndex].Quantity += 1
       state.cartItem[itemIndex].Price = parseFloat((state.cartItem[itemIndex].Price += state.cartItem[itemIndex].unitPrice).toFixed(2))
-      
-      
+      state.cartTotalPrice += parseFloat(state.cartItem[itemIndex].Price.toFixed(2))
+           
+              
      }
     },
     
@@ -63,7 +65,9 @@ const cartSlice = createSlice({
       if(state.cartItem[itemIndex].Quantity > 1){
         state.cartItem[itemIndex].Quantity -= 1;
         state.cartItem[itemIndex].Price = parseFloat((state.cartItem[itemIndex].Price -= state.cartItem[itemIndex].unitPrice).toFixed(2))
-        state.cartTotalQuantity -= 1;
+        state.cartTotalPrice -= parseFloat(state.cartItem[itemIndex].Price.toFixed(2))
+        
+        
         return
         
       } 
@@ -72,6 +76,7 @@ const cartSlice = createSlice({
     deleteCartItem: (state, action) => {
      const itemIndex = state.cartItem.findIndex((item) => item.id === action.payload.id);
      state.cartItem.splice(itemIndex , 1)
+ 
     }
      
       
